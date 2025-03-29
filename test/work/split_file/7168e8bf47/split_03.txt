@@ -1,0 +1,1 @@
+Then it will count the words in each part.

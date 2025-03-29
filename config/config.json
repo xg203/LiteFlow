@@ -1,0 +1,33 @@
+{
+  "global_params": {
+    "output_dir": "test/result",
+    "work_dir": "test/work",
+    "pipeline_description": "Word count split-map-reduce example (with Docker)"
+  },
+  "tasks": {
+    "file_splitter": {
+      "function": "split_file",
+      "description": "Splits the input file into multiple parts.",
+      "params": {
+        "input_file": "test/input.txt",
+        "num_splits": 4
+      }
+    },
+    "word_counter": {
+      "function": "run_word_count_on_list",
+      "description": "Counts words in each split file using word_counter.sh inside Docker.",
+      "docker": {
+        "image": "ubuntu:latest",
+        "enabled": true
+      },
+      "params": {}
+    },
+    "result_summer": {
+      "function": "sum_counts",
+      "description": "Sums the counts and writes the total to the final output directory.",
+      "params": {
+        "final_output_filename": "total_count_final.txt"
+      }
+    }
+  }
+}
